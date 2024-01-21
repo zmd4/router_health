@@ -12,6 +12,8 @@ use bytes::Bytes;
 pub struct PingPong {
     pub client: MqttClient,
 }
+
+#[async_trait::async_trait]
 impl AsyncEventHandler for PingPong {
     // Handlers only get INCOMING packets. This can change later.
     async fn handle(&mut self, event: packets::Packet) -> () {
@@ -40,7 +42,7 @@ impl AsyncEventHandler for PingPong {
 
 #[tokio::main]
 async fn main() {
-    let options = ConnectOptions::new("TokioTcpPingPongExample");
+    let options = ConnectOptions::new("TokioTcpPingPongExample".to_string());
 
     let (mut network, client) = new_tokio(options);
 
